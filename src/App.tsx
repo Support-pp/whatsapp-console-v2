@@ -3,12 +3,12 @@ import {PageLayout} from "./view/BaseLayout/PageLayout";
 import {PhoneNumberVerification} from "./api/types/PhoneNumverVerification";
 import {apiRequest} from "./api/ApiClient";
 import {useAuth0} from "@auth0/auth0-react";
-import {useErrorDisplay} from "./hooks/useErrorDisplay";
+import {useToastDisplay} from "./hooks/useToastDisplay";
 
 const App = () => {
     const {getAccessTokenSilently} = useAuth0()
     const [data, setData] = useState<PhoneNumberVerification>();
-    const {displayError} = useErrorDisplay()
+    const {displayError} = useToastDisplay()
 
 
     const fetchVerificationData = async () => {

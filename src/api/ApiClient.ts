@@ -16,6 +16,7 @@ export interface ApiClient{
     getPhoneNumbersVerification(): Promise<PhoneNumberVerification>
     createPhoneNumbersVerificationCode(): Promise<PhoneNumberVerificationInviteCode>
     getLimits(): Promise<Limits>
+    deletePhoneVerification(id:string): Promise<void>
 }
 
 export const apiRequest =(token:string): ApiClient =>{
@@ -38,6 +39,13 @@ export const apiRequest =(token:string): ApiClient =>{
         async getLimits(): Promise<Limits> {
             return await apiClient(token).get("/api/private/limits/").then((res) => {
                 return res.data as Limits
+            }).catch((e:AxiosError) =>{
+                throw new Error((e.response?.data as any)?.code)
+            })
+        },
+        async deletePhoneVerification(id: string): Promise<void> {
+            return await apiClient(token).delete("/api/private/phone-number-verifications/" + id).then((res) => {
+                return res.data
             }).catch((e:AxiosError) =>{
                 throw new Error((e.response?.data as any)?.code)
             })
