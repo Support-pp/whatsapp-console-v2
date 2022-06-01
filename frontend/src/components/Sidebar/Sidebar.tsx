@@ -5,15 +5,14 @@ import {UserProfile} from "../UserProfile/UserProfile";
 import {NavButton} from "../NavButton/NavButton";
 import {FiFile, FiHelpCircle, FiHome, FiKey, FiMessageCircle, FiPhone} from "react-icons/fi";
 import {useTranslate} from "@tolgee/react";
-import {useAuth0} from "@auth0/auth0-react";
+import {useAuth0, User} from "@auth0/auth0-react";
 
-
-export const Sidebar = () => {
-
-    const {user} = useAuth0()
-
+export interface SidebarProps{
+    user: User
+}
+export const Sidebar = (props: SidebarProps) => {
+    const {user} = props
     const t = useTranslate();
-
     const navigation = [
         {name: t("NAV_NAME_DASHBOARD"), href: '#', icon: FiHome, current: true},
         {name: t("NAV_NAME_PHONE_NUMBERS"), href: '#', icon: FiPhone, current: false},
@@ -22,13 +21,13 @@ export const Sidebar = () => {
         {name: t("NAV_NAME_HISTORY"), href: '#', icon: FiMessageCircle, current: false},
 
     ]
-
     return (<>
         <Flex
             flex="1"
             bg="bg-surface"
             boxShadow={useColorModeValue('sm', 'sm-dark')}
             maxW={{base: 'full', sm: 'xs'}}
+            minW={{base: 'full', sm: 'xs'}}
             py={{base: '6', sm: '8'}}
             px={{base: '4', sm: '6'}}
         >
@@ -63,9 +62,9 @@ export const Sidebar = () => {
                     </Box>
                     <Divider/>
                     <UserProfile
-                        name={`${user?.given_name ?? t("PLACEHOLDER_NO_NAME")} ${user?.family_name ?? ""}`}
-                        image={user?.picture ?? ""}
-                        email={user?.email ?? "unknow@klexhub.com"}
+                        name={`${user.given_name ?? t("PLACEHOLDER_NO_NAME")} ${user.family_name ?? ""}`}
+                        image={user.picture ?? ""}
+                        email={user.email ?? "unknow@klexhub.com"}
                     />
                 </Stack>
             </Stack>

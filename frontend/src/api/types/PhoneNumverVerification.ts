@@ -6,7 +6,7 @@ export interface ConnectedPhone {
 
 export interface PhoneNumberVerification {
     connectedPhones: ConnectedPhone[];
-    openConnectionCodes: any[];
+    openConnectionCodes: string[];
 }
 
 
