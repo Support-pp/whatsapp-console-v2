@@ -134,6 +134,8 @@ export const PhoneVerificationPage = () => {
         <PhoneNumberConnectionTable
           data={data}
           limits={limits}
+          fnRefresh={fetchVerificationData}
+          stateVerification={data}
           addButton={<AddButton />}
           refreshButton={<RefreshButton />}
           onDelete={(data: ConnectedPhone) => {

@@ -33,6 +33,8 @@ export interface PhoneNumberConnectionTableProps {
   onDelete: (data: ConnectedPhone) => void;
   addButton: React.ReactElement;
   refreshButton: React.ReactElement;
+  fnRefresh: () => void;
+  stateVerification: PhoneNumberVerification;
 }
 
 export const PhoneNumberConnectionTable = (
@@ -166,6 +168,8 @@ export const PhoneNumberConnectionTable = (
         inviteCode={typeof selectedItem === 'string' ? selectedItem : 'null'}
         onClose={() => setIntroductionModalState(false)}
         open={introductionModalState}
+        fnRefresh={props.fnRefresh}
+        stateVerification={props.stateVerification}
       />
       <Stack spacing="5">
         <Box px={{ base: '4', md: '6' }} pt="5">

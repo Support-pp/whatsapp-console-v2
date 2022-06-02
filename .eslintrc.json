@@ -29,7 +29,7 @@
   ],
   "rules": {
     "prettier/prettier": "error",
-    "no-console": "error",
+    "no-console": "warn",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "react-hooks/exhaustive-deps": "off"
