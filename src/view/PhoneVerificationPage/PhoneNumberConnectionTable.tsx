@@ -27,7 +27,7 @@ import { DeleteConfirmModal } from '../../components/Modal/DeleteConfirmModal';
 import moment from 'moment';
 import { IntroductionModal } from './IntroductionModal';
 
-export interface PhoneNumberConnectionTable {
+export interface PhoneNumberConnectionTableProps {
   data: PhoneNumberVerification;
   limits?: Limits;
   onDelete: (data: ConnectedPhone) => void;
@@ -36,13 +36,19 @@ export interface PhoneNumberConnectionTable {
 }
 
 export const PhoneNumberConnectionTable = (
-  props: PhoneNumberConnectionTable
+  props: PhoneNumberConnectionTableProps
 ) => {
   const { data } = props;
   const [selectedItem, setSelectedItem] = useState<ConnectedPhone | string>();
   const [deleteConfirmModalState, setDeleteConfirmModalState] = useState(false);
   const [introductionModalState, setIntroductionModalState] = useState(false);
   const t = useTranslate();
+
+  const confirmDelete = () => {
+    if (typeof selectedItem === 'object') {
+      props.onDelete(selectedItem);
+    }
+  };
 
   const renderInviteCodes = () => {
     return data.openConnectionCodes.map((code, i) => (
@@ -110,7 +116,7 @@ export const PhoneNumberConnectionTable = (
 
   const RenderTable = () => {
     return (
-      <Table {...props}>
+      <Table>
         <Thead>
           <Tr>
             <Th>{t('PHONE_NUMBER_LABEL')}</Th>
@@ -129,6 +135,8 @@ export const PhoneNumberConnectionTable = (
 
   const limit = props?.limits ? props?.limits?.limitPhoneNumbers : '0';
   const isSelectedItemInviteCode = typeof selectedItem === 'string';
+
+  const { refreshButton, addButton } = props;
 
   return (
     <Box
@@ -149,11 +157,7 @@ export const PhoneNumberConnectionTable = (
             : `${selectedItem?.phoneNumber}`
         }
         open={deleteConfirmModalState}
-        onDeleteConfirm={() => {
-          if (selectedItem && typeof selectedItem === 'object') {
-            props.onDelete(selectedItem);
-          }
-        }}
+        onDeleteConfirm={confirmDelete}
         onClose={() => {
           setDeleteConfirmModalState(false);
         }}
@@ -182,8 +186,8 @@ export const PhoneNumberConnectionTable = (
             </Text>
 
             <Box>
-              {props.addButton}
-              {props.refreshButton}
+              {addButton}
+              {refreshButton}
             </Box>
           </Stack>
         </Box>

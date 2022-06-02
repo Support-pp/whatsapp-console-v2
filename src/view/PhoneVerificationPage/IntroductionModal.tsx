@@ -46,10 +46,10 @@ export const IntroductionModal = (props: IntroductionModalProps) => {
                   value={`https://wa.me/${phoneNumber}/?text=!verify ${props.inviteCode}`}
                   bgColor={'white'}
                   fgColor={'black'}
+                  renderAs={'canvas'}
+                  size={182}
                   includeMargin
-                  level={'1'}
-                  renderAs={'svg'}
-                  size={64}
+                  level={'L'}
                 />
               </Box>
             </Box>

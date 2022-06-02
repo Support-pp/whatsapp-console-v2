@@ -21,6 +21,8 @@ import {
 } from 'react-icons/fi';
 import { useTranslate } from '@tolgee/react';
 import { User } from '@auth0/auth0-react';
+import { ROUTES } from '../../Routes';
+import { useNavigate } from 'react-router-dom';
 
 export interface SidebarProps {
   user: User;
@@ -33,7 +35,7 @@ export const Sidebar = (props: SidebarProps) => {
     { name: t('NAV_NAME_DASHBOARD'), href: '#', icon: FiHome, current: true },
     {
       name: t('NAV_NAME_PHONE_NUMBERS'),
-      href: '#',
+      href: ROUTES.PHONE_VERIFICATION,
       icon: FiPhone,
       current: false,
     },
@@ -46,6 +48,7 @@ export const Sidebar = (props: SidebarProps) => {
       current: false,
     },
   ];
+  const navigate = useNavigate();
   return (
     <>
       <Flex
@@ -65,7 +68,14 @@ export const Sidebar = (props: SidebarProps) => {
 
             <Stack spacing="1">
               {navigation.map((item, i) => {
-                return <NavButton key={i} label={item.name} icon={item.icon} />;
+                return (
+                  <NavButton
+                    key={i}
+                    label={item.name}
+                    icon={item.icon}
+                    onClick={() => navigate(item.href)}
+                  />
+                );
               })}
             </Stack>
           </Stack>
