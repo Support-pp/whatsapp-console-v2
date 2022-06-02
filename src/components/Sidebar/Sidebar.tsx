@@ -39,7 +39,12 @@ export const Sidebar = (props: SidebarProps) => {
       icon: FiPhone,
       current: false,
     },
-    { name: t('NAV_NAME_API_KEYS'), href: '#', icon: FiKey, current: false },
+    {
+      name: t('NAV_NAME_API_KEYS'),
+      href: ROUTES.API_KEY,
+      icon: FiKey,
+      current: false,
+    },
     { name: t('NAV_NAME_CONTRACTS'), href: '#', icon: FiFile, current: false },
     {
       name: t('NAV_NAME_HISTORY'),
