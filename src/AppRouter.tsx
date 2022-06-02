@@ -9,6 +9,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { theme } from '@chakra-ui/pro-theme';
 import { PhoneVerificationPage } from './view/PhoneVerificationPage/PhoneVerificationPage';
 import { ROUTES } from './Routes';
+import { ApiKeyPage } from './view/ApiKeyPage/ApiKeyPage';
 
 const AppRouter = () => {
   const { isLoading, loginWithRedirect, user } = useAuth0();
@@ -47,6 +48,7 @@ const AppRouter = () => {
                     path={ROUTES.PHONE_VERIFICATION}
                     element={<PhoneVerificationPage />}
                   />
+                  <Route path={ROUTES.API_KEY} element={<ApiKeyPage />} />
                   <Route path="/help" element={<HelpPage />} />
                 </Routes>
               </BaseLayout>
