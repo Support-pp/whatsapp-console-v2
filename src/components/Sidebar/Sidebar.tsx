@@ -48,7 +48,7 @@ export const Sidebar = (props: SidebarProps) => {
     { name: t('NAV_NAME_CONTRACTS'), href: '#', icon: FiFile, current: false },
     {
       name: t('NAV_NAME_HISTORY'),
-      href: '#',
+      href: ROUTES.HISTORY,
       icon: FiMessageCircle,
       current: false,
     },
