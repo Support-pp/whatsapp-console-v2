@@ -4,7 +4,7 @@
 name: Validate code base
 
 on:
-  push
+  pull_request
 
 jobs:
   build:
