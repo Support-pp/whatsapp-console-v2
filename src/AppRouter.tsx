@@ -8,6 +8,7 @@ import { TolgeeProvider } from '@tolgee/react';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { theme } from '@chakra-ui/pro-theme';
 import { PhoneVerificationPage } from './view/PhoneVerificationPage/PhoneVerificationPage';
+import { ROUTES } from './Routes';
 
 const AppRouter = () => {
   const { isLoading, loginWithRedirect, user } = useAuth0();
@@ -38,18 +39,18 @@ const AppRouter = () => {
           loadingFallback={<p>Loading...</p>}
         >
           {user ? (
-            <BaseLayout user={user}>
-              <BrowserRouter>
+            <BrowserRouter>
+              <BaseLayout user={user}>
                 <Routes>
                   <Route path="/" element={<App />} />
                   <Route
-                    path={'/phone-verification'}
+                    path={ROUTES.PHONE_VERIFICATION}
                     element={<PhoneVerificationPage />}
                   />
                   <Route path="/help" element={<HelpPage />} />
                 </Routes>
-              </BrowserRouter>
-            </BaseLayout>
+              </BaseLayout>
+            </BrowserRouter>
           ) : (
             <p>Loading</p>
           )}

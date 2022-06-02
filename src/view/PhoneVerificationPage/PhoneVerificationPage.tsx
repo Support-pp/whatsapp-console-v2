@@ -8,12 +8,12 @@ import {
 import { apiRequest } from '../../api/ApiClient';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
 import { FiPhone } from 'react-icons/fi';
-import { PhoneNumberConnectionTable } from './PhoneNumberConnectionTable';
 import { Limits } from '../../api/types/Limits';
 import { PlusIcon, RefreshIcon } from '@heroicons/react/solid';
 import { Button } from '@chakra-ui/react';
 import { useTranslate } from '@tolgee/react';
 import { useToastDisplay } from '../../hooks/useToastDisplay';
+import { PhoneNumberConnectionTable } from './PhoneNumberConnectionTable';
 
 export const PhoneVerificationPage = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -91,6 +91,30 @@ export const PhoneVerificationPage = () => {
     ? limits.limitPhoneNumbers >=
       data.connectedPhones.length + data.openConnectionCodes.length
     : false;
+
+  const RefreshButton = () => (
+    <Button
+      ml={'2'}
+      onClick={() => {
+        fetchVerificationData().then();
+        displaySuccess('SUCCESS_REFRESH_TITLE', 'SUCCESS_REFRESH_DESCRIPTION');
+      }}
+      isLoading={pendingEmptyStateButton}
+    >
+      <RefreshIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+    </Button>
+  );
+
+  const AddButton = () => (
+    <Button
+      onClick={createNewVerificationCode}
+      isLoading={pendingEmptyStateButton}
+    >
+      <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+      {t('BUTTON_ADD_PHONE_NUMBER')}
+    </Button>
+  );
+
   return (
     <PageLayout
       title="PAGE_PHONE_NUMBERS_TITLE"
@@ -110,33 +134,11 @@ export const PhoneVerificationPage = () => {
         <PhoneNumberConnectionTable
           data={data}
           limits={limits}
+          addButton={<AddButton />}
+          refreshButton={<RefreshButton />}
           onDelete={(data: ConnectedPhone) => {
             deleteItem(data).then();
           }}
-          addButton={
-            <Button
-              onClick={createNewVerificationCode}
-              isLoading={pendingEmptyStateButton}
-            >
-              <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-              {t('BUTTON_ADD_PHONE_NUMBER')}
-            </Button>
-          }
-          refreshButton={
-            <Button
-              ml={'2'}
-              onClick={() => {
-                fetchVerificationData();
-                displaySuccess(
-                  'SUCCESS_REFRESH_TITLE',
-                  'SUCCESS_REFRESH_DESCRIPTION'
-                );
-              }}
-              isLoading={pendingEmptyStateButton}
-            >
-              <RefreshIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-            </Button>
-          }
         />
       )}
     </PageLayout>
