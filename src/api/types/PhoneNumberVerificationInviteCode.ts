@@ -1,3 +1,3 @@
-export interface PhoneNumberVerificationInviteCode{
-    "inviteCode": string
+export interface PhoneNumberVerificationInviteCode {
+  inviteCode: string;
 }

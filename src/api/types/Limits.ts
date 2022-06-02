@@ -1,4 +1,4 @@
 export interface Limits {
-    limitPhoneNumbers: number,
-    limitMessages: number
+  limitPhoneNumbers: number;
+  limitMessages: number;
 }
