@@ -11,6 +11,7 @@ import { PhoneVerificationPage } from './view/PhoneVerificationPage/PhoneVerific
 import { ROUTES } from './Routes';
 import { ApiKeyPage } from './view/ApiKeyPage/ApiKeyPage';
 import { HistoryPage } from './view/HistoryPage/HistoryPage';
+import { ContractPage } from './view/ContractPage/ContractPage';
 
 const AppRouter = () => {
   const { isLoading, loginWithRedirect, user } = useAuth0();
@@ -51,6 +52,7 @@ const AppRouter = () => {
                   />
                   <Route path={ROUTES.API_KEY} element={<ApiKeyPage />} />
                   <Route path={ROUTES.HISTORY} element={<HistoryPage />} />
+                  <Route path={ROUTES.CONTRACTS} element={<ContractPage />} />
                   <Route path="/help" element={<HelpPage />} />
                 </Routes>
               </BaseLayout>
