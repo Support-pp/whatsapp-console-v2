@@ -10,6 +10,7 @@ import { theme } from '@chakra-ui/pro-theme';
 import { PhoneVerificationPage } from './view/PhoneVerificationPage/PhoneVerificationPage';
 import { ROUTES } from './Routes';
 import { ApiKeyPage } from './view/ApiKeyPage/ApiKeyPage';
+import { HistoryPage } from './view/HistoryPage/HistoryPage';
 
 const AppRouter = () => {
   const { isLoading, loginWithRedirect, user } = useAuth0();
@@ -49,6 +50,7 @@ const AppRouter = () => {
                     element={<PhoneVerificationPage />}
                   />
                   <Route path={ROUTES.API_KEY} element={<ApiKeyPage />} />
+                  <Route path={ROUTES.HISTORY} element={<HistoryPage />} />
                   <Route path="/help" element={<HelpPage />} />
                 </Routes>
               </BaseLayout>

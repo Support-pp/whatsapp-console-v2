@@ -4,6 +4,7 @@ import { PhoneNumberVerificationInviteCode } from './types/PhoneNumberVerificati
 import { Limits } from './types/Limits';
 import { M2M } from './types/M2M';
 import { NotFoundException } from './errors/NotFoundException';
+import { HistoryResponse } from './types/HistoryItem';
 
 const instance = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 
@@ -33,6 +34,8 @@ export interface ApiClient {
   deleteApiKey(): Promise<void>;
 
   regenerateApiSecret(): Promise<M2M>;
+
+  getHistory(): Promise<HistoryResponse>;
 }
 
 export const apiRequest = (token: string): ApiClient => {
@@ -128,6 +131,17 @@ export const apiRequest = (token: string): ApiClient => {
         .get('/api/private/limits/')
         .then((res) => {
           return res.data as Limits;
+        })
+        .catch((e: AxiosError) => {
+          throw new Error((e.response?.data as ErrorResponseBackend)?.code);
+        });
+    },
+
+    async getHistory(): Promise<HistoryResponse> {
+      return await apiClient(token)
+        .get('/api/private/history/')
+        .then((res) => {
+          return res.data as HistoryResponse;
         })
         .catch((e: AxiosError) => {
           throw new Error((e.response?.data as ErrorResponseBackend)?.code);
