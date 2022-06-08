@@ -5,6 +5,7 @@ import { Limits } from './types/Limits';
 import { M2M } from './types/M2M';
 import { NotFoundException } from './errors/NotFoundException';
 import { HistoryResponse } from './types/HistoryItem';
+import { ContractsResponse } from './types/ContractsResponse';
 
 const instance = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 
@@ -36,6 +37,12 @@ export interface ApiClient {
   regenerateApiSecret(): Promise<M2M>;
 
   getHistory(): Promise<HistoryResponse>;
+
+  getUserContracts(): Promise<ContractsResponse>;
+
+  getDiscoveryContracts(): Promise<ContractsResponse>;
+
+  startCheckoutSession(contractKey: string): Promise<void>;
 }
 
 export const apiRequest = (token: string): ApiClient => {
@@ -142,6 +149,36 @@ export const apiRequest = (token: string): ApiClient => {
         .get('/api/private/history/')
         .then((res) => {
           return res.data as HistoryResponse;
+        })
+        .catch((e: AxiosError) => {
+          throw new Error((e.response?.data as ErrorResponseBackend)?.code);
+        });
+    },
+    async getUserContracts(): Promise<ContractsResponse> {
+      return await apiClient(token)
+        .get('/api/private/contracts/')
+        .then((res) => {
+          return res.data as ContractsResponse;
+        })
+        .catch((e: AxiosError) => {
+          throw new Error((e.response?.data as ErrorResponseBackend)?.code);
+        });
+    },
+    async getDiscoveryContracts(): Promise<ContractsResponse> {
+      return await apiClient(token)
+        .get('/api/private/contracts/discovery')
+        .then((res) => {
+          return res.data as ContractsResponse;
+        })
+        .catch((e: AxiosError) => {
+          throw new Error((e.response?.data as ErrorResponseBackend)?.code);
+        });
+    },
+    async startCheckoutSession(contractKey: string): Promise<void> {
+      return await apiClient(token)
+        .post('/api/private/contracts/checkout?contract_name=' + contractKey)
+        .then(() => {
+          return;
         })
         .catch((e: AxiosError) => {
           throw new Error((e.response?.data as ErrorResponseBackend)?.code);

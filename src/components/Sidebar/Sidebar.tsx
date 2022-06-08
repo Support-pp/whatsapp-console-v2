@@ -70,7 +70,7 @@ export const Sidebar = (props: SidebarProps) => {
         py={{ base: '6', sm: '8' }}
         px={{ base: '4', sm: '6' }}
       >
-        <Stack justify="space-between" spacing="1">
+        <Stack justify="space-between" spacing="1" maxW={'320px'}>
           <Stack spacing={{ base: '5', sm: '6' }} shouldWrapChildren>
             <Text fontSize="2xl" fontWeight="bold" justifySelf={'center'}>
               Support++ Console
